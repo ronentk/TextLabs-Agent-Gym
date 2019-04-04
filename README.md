@@ -24,5 +24,5 @@ For a system overview, refer to our paperXXX.
 
 ## Usage
 
-1. Generate games for your training and evaluation environments by running `tl-make-lab-games <env_id>`, where `<env_id>` should correspond to the ones at `lstm_dqn_baseline/config.yaml`
+1. Generate games for your training and evaluation environments by running `tl-make-lab-games <env_id>`, where `<env_id>` should correspond to the ones at `lstm_dqn_baseline/configs/config.yaml`
 2. From repo root, run `python lstm_dqn_baseline/train.py lstm_dqn_baseline/configs/config.yaml`. Training progress logs are stored in `exps/<experiment_tag>`
