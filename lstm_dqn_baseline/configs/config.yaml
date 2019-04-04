@@ -1,0 +1,65 @@
+general:
+  discount_gamma: 0.5
+  random_seed: 42
+  use_cuda: False  # disable this when running on machine without cuda
+  env_id: 'tl_easy_level2_gamesize100_step60_seed13344_train'
+  
+  
+  # replay memory
+  replay_memory_capacity: 500000
+  replay_memory_priority_fraction: 0.25
+  update_per_k_game_steps: 4
+  replay_batch_size: 32
+
+  # action storage buffer
+  action_buffer_size: 4
+
+  # epsilon greedy
+  epsilon_anneal_episodes: 400  # -1 if not annealing
+  epsilon_anneal_from: 1.0
+  epsilon_anneal_to: 0.15
+
+checkpoint:
+  experiment_tag: 'lstm_dqn_1'
+  model_checkpoint_path: 'saved_models'
+  load_pretrained: False
+  pretrained_experiment_tag: 'lstm_dqn_1_episode_0'
+  save_frequency: 200
+
+training:
+  batch_size: 10
+  epochs: 2000
+  intermediate_rewards: True # whether to use intermediate rewards
+  use_state_rep: False # whether to use string state representation
+  use_admissible_cmds: True # whether to use only admissible cmds
+  scheduling:
+   logging_frequency: 1
+  optimizer:
+    step_rule: 'adam'  # adam
+    learning_rate: 0.001
+    clip_grad_norm: 5
+
+eval:
+  env_id: 'tl_easy_level2_gamesize10_step60_seed13344_validation'
+  eval_freq: 10 # X = 0 - don't eval, X > 0 to eval every X epochs
+  batch_size: 10
+  batches_per_log: 1 # log every x batches
+  
+  
+  
+
+
+model:
+  embedding_size: 64
+  encoder_rnn_hidden_size: [192]
+  action_scorer_hidden_dim: 128
+  dropout_between_rnn_layers: 0.
+
+vocab:
+  valid_actions: ['drop', 'op_run', 'op_type', 'op_ia_assign', 'op_o_obtain', 'take', 'dlink', 'look']
+  use_pregen_vocab: False
+  file: 'vocab.p'
+
+logging:
+  batches_per_log: 10 # log every x training batches
+  experiment_dir: 'exps'

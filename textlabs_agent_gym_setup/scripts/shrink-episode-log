@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import argparse
+from textlabs_agent_gym.logs_viewer import LogsViewer
+
+
+MB_PER_EP = 0.00315
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("run_dir", type=str,
+                        help="Run directory")
+    parser.add_argument("--max_size", type=float,
+                        help="max size in MBs of reduced log file", 
+                        default=0.3)
+    parser.add_argument("--write_mode", type=str,
+                        help="o - overwrite existing file, n- create new shrunk" 
+                        " file (default)", 
+                        default="n")
+    
+    
+    return parser.parse_args()
+
+
+
+
+if __name__ == "__main__":
+    args = parse_args()
+    run_dir = args.run_dir
+    max_size = args.max_size
+    write_mode = args.write_mode
+    
+    log_viewer = LogsViewer(run_dir)
+    batch_size = len(log_viewer.episodes[0].to_episodes())
+    total_num_eps = batch_size * len(log_viewer.episodes)
+    
+    # Total number of episodes we can fit in max_size MBs
+    max_eps = max_size / MB_PER_EP
+    
+    keep_every_nth = max(1, int(total_num_eps // max_eps))
+    
+    eps = log_viewer.downsample_episodes(keep_every_nth_batch=keep_every_nth,
+                                   once_per_epoch=False,
+                                   write_mode=write_mode)
+    

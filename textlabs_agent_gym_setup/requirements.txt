@@ -1,0 +1,7 @@
+
+gym==0.10.4
+hashids
+tqdm
+nltk==3.4
+spacy==2.0.18
+jsonpickle==1.1
