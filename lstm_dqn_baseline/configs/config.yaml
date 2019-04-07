@@ -1,7 +1,7 @@
 general:
   discount_gamma: 0.5
   random_seed: 42
-  use_cuda: False  # disable this when running on machine without cuda
+  use_cuda: True  # disable this when running on machine without cuda
   env_id: 'tl_easy_level2_gamesize100_step60_seed13344_train'
   
   
@@ -57,7 +57,7 @@ model:
 
 vocab:
   valid_actions: ['drop', 'op_run', 'op_type', 'op_ia_assign', 'op_o_obtain', 'take', 'dlink', 'look']
-  use_pregen_vocab: False
+  use_pregen_vocab: True
   file: 'vocab.p'
 
 logging:
